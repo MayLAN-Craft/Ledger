@@ -50,7 +50,7 @@ object NbtUtils {
     }
 
     fun itemFromProperties(tag: String?, name: Identifier, registries: RegistryWrapper.WrapperLookup): ItemStack {
-        val extraDataTag = StringNbtReader.parse(tag ?: "{}")
+        val extraDataTag = StringNbtReader.readCompound(tag ?: "{}")
         var itemTag = extraDataTag
         if (!extraDataTag.contains(COUNT)) {
             // 1.20.4 and lower (need data fixing)

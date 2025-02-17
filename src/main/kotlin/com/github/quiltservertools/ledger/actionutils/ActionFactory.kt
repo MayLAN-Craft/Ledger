@@ -193,7 +193,7 @@ object ActionFactory {
         action.world = world.registryKey.value
         action.objectIdentifier = Registries.ITEM.getId(stack.item)
         action.sourceName = source
-        action.extraData = stack.toNbtAllowEmpty(world.registryManager)?.asString()
+        action.extraData = stack.toNbt(world.registryManager)?.asString()
     }
 
     fun entityKillAction(world: World, pos: BlockPos, entity: Entity, cause: DamageSource): EntityKillActionType {
@@ -254,7 +254,7 @@ object ActionFactory {
         action.oldObjectIdentifier = Registries.ENTITY_TYPE.getId(entity.type)
 
         if (itemStack != null) {
-            action.extraData = itemStack.toNbtAllowEmpty(world.registryManager)?.asString()
+            action.extraData = itemStack.toNbt(world.registryManager)?.asString()
         }
         action.oldObjectState = oldEntityTags.asString()
         action.objectState = entity.writeNbt(NbtCompound())?.asString()
