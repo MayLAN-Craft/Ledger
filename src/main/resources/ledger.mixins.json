@@ -7,13 +7,10 @@
         "AxeItemMixin",
         "BlockItemMixin",
         "BlockMixin",
-
-
         "CampfireBlockEntityMixin",
         "DoubleInventoryMixin",
         "DyeItemMixin",
         "ExplosionImplMixin",
-
         "FlintAndSteelItemMixin",
         "FrostWalkerEnchantmentMixin",
         "HoeItemMixin",
@@ -23,7 +20,6 @@
         "LockableContainerBlockEntityMixin",
         "NetherPortalMixin",
         "ScreenHandlerMixin",
-
         "ShovelItemMixin",
         "SlotMixin",
         "blocks.AbstractPlantPartBlockMixin",
@@ -49,25 +45,23 @@
         "blocks.JukeBoxBlockMixin",
         "blocks.LeavesBlockMixin",
         "blocks.LeverBlockMixin",
-
+        "blocks.LilyPadBlockMixin",
         "blocks.NoteBlockMixin",
         "blocks.PointedDripstoneBlockMixin",
         "blocks.RepeaterBlockMixin",
         "blocks.RootedDirtBlockMixin",
         "blocks.ScaffoldingBlockMixin",
-
         "blocks.SpreadableBlockMixin",
         "blocks.SugarCaneBlockMixin",
         "blocks.TrapdoorBlockMixin",
         "blocks.WetSpongeBlockMixin",
         "blocks.cauldron.CauldronBehaviorMixin",
         "blocks.cauldron.CauldronBlockMixin",
-
+        "blocks.cauldron.LeveledCauldronBlockMixin",
         "blocks.coral.CoralBlockBlockMixin",
         "blocks.coral.CoralBlockMixin",
         "blocks.coral.CoralFanBlockMixin",
         "blocks.coral.CoralWallFanBlockMixin",
-
         "blocks.lectern.LecternScreenHandlerMixin",
         "blocks.lectern.ScreenHandlerMixin",
         "blocks.sign.AbstractSignBlockMixin",
@@ -84,11 +78,10 @@
         "entities.ItemFrameEntityMixin",
         "entities.LightningEntityMixin",
         "entities.LivingEntityMixin",
-
+        "entities.MobEntityMixin",
         "entities.RavagerEntityMixin",
         "entities.SheepEntityMixin",
         "entities.SnowGolemEntityMixin",
-        "entities.MobEntityMixin",
         "entities.WolfEntityMixin",
         "entities.silverfish.CallForHelpGoalMixin",
         "entities.silverfish.WanderAndInfestGoalMixin",

@@ -5,12 +5,14 @@ import com.github.quiltservertools.ledger.utility.Sources;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.LeveledCauldronBlock;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityCollisionHandler;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.fluid.Fluid;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -18,6 +20,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LeveledCauldronBlock.class)
 public abstract class LeveledCauldronBlockMixin {
 
+    @Unique
     private static PlayerEntity playerEntity;
 
     @Inject(method = "decrementFluidLevel", at = @At(value = "INVOKE",
@@ -50,7 +53,7 @@ public abstract class LeveledCauldronBlockMixin {
 
     @Inject(method = "onEntityCollision", at = @At(value = "INVOKE",
             target = "Lnet/minecraft/block/LeveledCauldronBlock;onFireCollision(Lnet/minecraft/block/BlockState;Lnet/minecraft/world/World;Lnet/minecraft/util/math/BlockPos;)V"))
-    private void ledgerLogPlayerExtinguish(BlockState state, World world, BlockPos pos, Entity entity, CallbackInfo ci) {
+    private void ledgerLogPlayerExtinguish(BlockState state, World world, BlockPos pos, Entity entity, EntityCollisionHandler entityCollisionHandler, CallbackInfo ci) {
         if (entity instanceof PlayerEntity) {
             playerEntity = (PlayerEntity) entity;
         }
