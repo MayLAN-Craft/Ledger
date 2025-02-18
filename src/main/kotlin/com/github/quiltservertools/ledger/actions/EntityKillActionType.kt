@@ -1,9 +1,11 @@
 package com.github.quiltservertools.ledger.actions
 
 import com.github.quiltservertools.ledger.actionutils.Preview
+import com.github.quiltservertools.ledger.utility.UUID
 import com.github.quiltservertools.ledger.utility.containsUuid
 import com.github.quiltservertools.ledger.utility.getUuid
 import com.github.quiltservertools.ledger.utility.getWorld
+import net.minecraft.entity.Entity
 import net.minecraft.entity.LivingEntity
 import net.minecraft.entity.SpawnReason
 import net.minecraft.nbt.StringNbtReader
@@ -72,13 +74,13 @@ class EntityKillActionType : AbstractActionType() {
     override fun restore(server: MinecraftServer): Boolean {
         val world = server.getWorld(world)
 
-//        val uuid = StringNbtReader.readCompound(extraData)!!.getUuid(UUID) ?: return false
-//        val entity = world?.getEntity(uuid)
-//
-//        if (entity != null) {
-//            entity.remove(Entity.RemovalReason.DISCARDED)
-//            return true
-//        }
+        val uuid = StringNbtReader.readCompound(extraData)!!.getUuid(UUID)
+        val entity = world?.getEntity(uuid)
+
+        if (entity != null) {
+            entity.remove(Entity.RemovalReason.DISCARDED)
+            return true
+        }
 
         return false
     }
