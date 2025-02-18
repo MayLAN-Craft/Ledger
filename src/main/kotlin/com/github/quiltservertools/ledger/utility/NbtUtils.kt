@@ -72,7 +72,9 @@ object NbtUtils {
     }
 
     fun toUuid(element: NbtElement): UUID {
-        require(element.nbtType !== NbtIntArray.TYPE) { "Expected UUID-Tag to be of type ${NbtIntArray.TYPE.crashReportName}, but found ${element.nbtType.crashReportName}." }
+        require(element.nbtType !== NbtIntArray.TYPE) {
+            "Expected UUID-Tag to be of type ${NbtIntArray.TYPE.crashReportName}, but found ${element.nbtType.crashReportName}."
+        }
 
         val array = (element as NbtIntArray).intArray
         require(array.size == 4) { "Expected UUID-Array to be of length 4, but found ${array.size}." }
