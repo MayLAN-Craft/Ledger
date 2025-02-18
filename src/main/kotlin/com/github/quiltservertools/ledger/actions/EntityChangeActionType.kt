@@ -1,9 +1,14 @@
 package com.github.quiltservertools.ledger.actions
 
+import com.github.quiltservertools.ledger.utility.NbtUtils
 import com.github.quiltservertools.ledger.utility.TextColorPallet
+import com.github.quiltservertools.ledger.utility.UUID
 import com.github.quiltservertools.ledger.utility.getWorld
 import com.github.quiltservertools.ledger.utility.literal
 import com.mojang.brigadier.exceptions.CommandSyntaxException
+import net.minecraft.entity.LivingEntity
+import net.minecraft.entity.decoration.AbstractDecorationEntity
+import net.minecraft.entity.decoration.ItemFrameEntity
 import net.minecraft.item.BlockItem
 import net.minecraft.item.ItemStack
 import net.minecraft.nbt.StringNbtReader
@@ -75,24 +80,26 @@ class EntityChangeActionType : AbstractActionType() {
         return text
     }
 
-    //        TODO: rollback/restore entity changes
     override fun rollback(server: MinecraftServer): Boolean {
         val world = server.getWorld(world)
 
-//        val oldEntity = StringNbtReader.readCompound(oldObjectState)
-//        val uuid = oldEntity!!.getUuid(UUID) ?: return false
-//        val entity = world?.getEntity(uuid)
-//
-//        if (entity != null) {
-//            if (entity is ItemFrameEntity) {
-//                entity.heldItemStack = ItemStack.EMPTY
-//            }
-//            when (entity) {
-//                is LivingEntity -> entity.readCustomDataFromNbt(oldEntity)
-//                is AbstractDecorationEntity -> entity.readCustomDataFromNbt(oldEntity)
-//            }
-//            return true
-//        }
+        val oldEntity = StringNbtReader.readCompound(oldObjectState)
+        val uuidNbt = oldEntity!!.get(UUID) ?: return false
+        val uuid = NbtUtils.toUuid(uuidNbt)
+        val entity = world?.getEntity(uuid)
+
+        if (entity != null) {
+            // TODO: possibly forgotten case with item being removed
+            // TODO: readCustomDataFromNbt really does not work for item frames?
+            if (entity is ItemFrameEntity) {
+                entity.heldItemStack = ItemStack.EMPTY
+            }
+            when (entity) {
+                is LivingEntity -> entity.readCustomDataFromNbt(oldEntity)
+                is AbstractDecorationEntity -> entity.readCustomDataFromNbt(oldEntity)
+            }
+            return true
+        }
         return false
     }
 

@@ -9,11 +9,14 @@ import net.minecraft.item.ItemStack
 import net.minecraft.nbt.NbtCompound
 import net.minecraft.nbt.NbtElement
 import net.minecraft.nbt.NbtHelper
+import net.minecraft.nbt.NbtIntArray
 import net.minecraft.nbt.NbtOps
 import net.minecraft.nbt.StringNbtReader
 import net.minecraft.registry.RegistryEntryLookup
 import net.minecraft.registry.RegistryWrapper
 import net.minecraft.util.Identifier
+import net.minecraft.util.Uuids
+import java.util.*
 
 const val ITEM_NBT_DATA_VERSION = 3817
 const val ITEM_COMPONENTS_DATA_VERSION = 3825
@@ -66,5 +69,13 @@ object NbtUtils {
         }
 
         return ItemStack.fromNbt(registries, itemTag).orElse(ItemStack.EMPTY)
+    }
+
+    fun toUuid(element: NbtElement): UUID {
+        require(element.nbtType !== NbtIntArray.TYPE) { "Expected UUID-Tag to be of type ${NbtIntArray.TYPE.crashReportName}, but found ${element.nbtType.crashReportName}." }
+
+        val array = (element as NbtIntArray).intArray
+        require(array.size == 4) { "Expected UUID-Array to be of length 4, but found ${array.size}." }
+        return Uuids.toUuid(array)
     }
 }
