@@ -79,3 +79,12 @@ object NbtUtils {
         return Uuids.toUuid(array)
     }
 }
+
+fun NbtCompound.containsUuid(key: String): Boolean {
+    val nbtElement = this[key]
+    return nbtElement != null && nbtElement.nbtType === NbtIntArray.TYPE && (nbtElement as NbtIntArray).intArray.size == 4
+}
+
+fun NbtCompound.getUuid(key: String): UUID {
+    return NbtUtils.toUuid(this[key]!!)
+}
