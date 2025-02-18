@@ -15,6 +15,7 @@
   "text.ledger.status.version": "Версия: %s",
   "text.ledger.status.discord": "Discord: %s",
   "text.ledger.status.discord.join": "Нажмите, чтобы присоединиться",
+  "text.ledger.status.db_type": "Тип базы данных: %s",
   "text.ledger.status.wiki": "Wiki: %s",
   "text.ledger.status.wiki.view": "Нажмите, чтобы просмотреть",
 
@@ -44,9 +45,13 @@
   "error.ledger.no_more_pages": "Больше нет страниц",
   "error.ledger.unknown_param": "Неизвестный параметр %s",
   "error.ledger.no_preview": "Нет текущего предварительного просмотра",
+  "error.ledger.unspecific.range": "Пожалуйста, укажите радиус.",
+  "error.ledger.unspecific.range_to_big": "Максимальный радиус составляет %s.",
+  "error.ledger.unspecific.source_or_time": "Пожалуйста, укажите источник или время (после).",
 
   "text.ledger.action.block-place": "разместил",
   "text.ledger.action.block-break": "сломал",
+  "text.ledger.action.block-change": "изменил",
   "text.ledger.action.item-insert": "добавил",
   "text.ledger.action.item-remove": "удалил",
   "text.ledger.action.item-pick-up": "подобрал",
@@ -54,5 +59,20 @@
   "text.ledger.action.entity-kill": "убил",
   "text.ledger.action.entity-change": "изменил",
 
-  "text.ledger.network.protocols_mismatched": "Несоответствие версий протокола: клиентский мод - это версия протокола Ledger %d, а версия клиента - %d"
+  "text.ledger.parameter.action.description": "Фильтровать по типу действия.",
+  "text.ledger.parameter.after.description": "Фильтровать по времени (по истечении указанного времени).",
+  "text.ledger.parameter.before.description": "Фильтровать по времени (до указанного времени). Обычно вы хотите использовать после (after).",
+  "text.ledger.parameter.object.description": "Фильтровать по совпадению с объектом. Это может быть блок, элемент или сущность.",
+  "text.ledger.parameter.range.description": "Фильтровать по местоположению (радиус квадрата вокруг вашего местоположения).",
+  "text.ledger.parameter.rolledback.description": "Фильтровать по состоянию отката.",
+  "text.ledger.parameter.source.description": "Фильтровать по источнику (имя игрока или источник с символом \"@\").",
+  "text.ledger.parameter.world.description": "Фильтровать по указанному измерению.",
+
+  "text.ledger.network.protocols_mismatched": "Несоответствие версий протокола: клиентский мод - это версия протокола Ledger %d, а версия клиента - %d",
+  "text.ledger.network.no_mod_info": "Не удается определить информацию о моде для вашего клиентского мода",
+
+  "text.ledger.purge.starting": "------ Начинаем очистку ------",
+  "text.ledger.purge.complete": "------ Очистка завершена ------",
+
+  "text.ledger.player.result": "%1$s: Впервые зашёл: %2$s. В последний раз заходил: %3$s"
 }
