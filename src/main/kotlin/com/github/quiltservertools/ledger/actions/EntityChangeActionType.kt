@@ -1,8 +1,8 @@
 package com.github.quiltservertools.ledger.actions
 
-import com.github.quiltservertools.ledger.utility.NbtUtils
 import com.github.quiltservertools.ledger.utility.TextColorPallet
 import com.github.quiltservertools.ledger.utility.UUID
+import com.github.quiltservertools.ledger.utility.getUuid
 import com.github.quiltservertools.ledger.utility.getWorld
 import com.github.quiltservertools.ledger.utility.literal
 import com.mojang.brigadier.exceptions.CommandSyntaxException
@@ -84,8 +84,7 @@ class EntityChangeActionType : AbstractActionType() {
         val world = server.getWorld(world)
 
         val oldEntity = StringNbtReader.readCompound(oldObjectState)
-        val uuidNbt = oldEntity!!.get(UUID) ?: return false
-        val uuid = NbtUtils.toUuid(uuidNbt)
+        val uuid = oldEntity!!.getUuid(UUID)
         val entity = world?.getEntity(uuid)
 
         if (entity != null) {
@@ -106,8 +105,7 @@ class EntityChangeActionType : AbstractActionType() {
     override fun restore(server: MinecraftServer): Boolean {
         val world = server.getWorld(world)
         val newEntity = StringNbtReader.readCompound(objectState)
-        val uuidNbt = newEntity!!.get(UUID) ?: return false
-        val uuid = NbtUtils.toUuid(uuidNbt)
+        val uuid = newEntity!!.getUuid(UUID)
         val entity = world?.getEntity(uuid)
 
         if (entity != null) {
