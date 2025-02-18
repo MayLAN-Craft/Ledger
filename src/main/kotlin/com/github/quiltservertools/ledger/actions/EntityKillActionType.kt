@@ -7,6 +7,7 @@ import net.minecraft.entity.SpawnReason
 import net.minecraft.nbt.StringNbtReader
 import net.minecraft.registry.Registries
 import net.minecraft.server.MinecraftServer
+import net.minecraft.server.network.EntityTrackerEntry
 import net.minecraft.server.network.ServerPlayerEntity
 import net.minecraft.util.math.Vec3d
 
@@ -15,7 +16,6 @@ class EntityKillActionType : AbstractActionType() {
 
     override fun getTranslationType() = "entity"
 
-    // TODO: entity kills
     override fun previewRollback(preview: Preview, player: ServerPlayerEntity) {
         val world = player.server.getWorld(world)
 
@@ -27,10 +27,10 @@ class EntityKillActionType : AbstractActionType() {
         entity.health = entity.defaultMaxHealth.toFloat()
         entity.velocity = Vec3d.ZERO
         entity.fireTicks = 0
-//
-//        val entityTrackerEntry = EntityTrackerEntry(world, entity, 1, false) { }
-//        entityTrackerEntry.startTracking(player)
-//        preview.spawnedEntityTrackers.add(entityTrackerEntry)
+
+        val entityTrackerEntry = EntityTrackerEntry(world, entity, 1, false, {}, { _, _ -> })
+        entityTrackerEntry.startTracking(player)
+        preview.spawnedEntityTrackers.add(entityTrackerEntry)
     }
 
     override fun previewRestore(preview: Preview, player: ServerPlayerEntity) {
