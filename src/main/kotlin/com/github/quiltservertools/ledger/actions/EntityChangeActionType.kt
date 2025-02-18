@@ -105,20 +105,21 @@ class EntityChangeActionType : AbstractActionType() {
 
     override fun restore(server: MinecraftServer): Boolean {
         val world = server.getWorld(world)
-//        val newEntity = StringNbtReader.readCompound(objectState)
-//        val uuid = newEntity!!.getUuid(UUID) ?: return false
-//        val entity = world?.getEntity(uuid)
-//
-//        if (entity != null) {
-//            if (entity is ItemFrameEntity) {
-//                entity.heldItemStack = ItemStack.EMPTY
-//            }
-//            when (entity) {
-//                is LivingEntity -> entity.readCustomDataFromNbt(newEntity)
-//                is AbstractDecorationEntity -> entity.readCustomDataFromNbt(newEntity)
-//            }
-//            return true
-//        }
+        val newEntity = StringNbtReader.readCompound(objectState)
+        val uuidNbt = newEntity!!.get(UUID) ?: return false
+        val uuid = NbtUtils.toUuid(uuidNbt)
+        val entity = world?.getEntity(uuid)
+
+        if (entity != null) {
+            if (entity is ItemFrameEntity) {
+                entity.heldItemStack = ItemStack.EMPTY
+            }
+            when (entity) {
+                is LivingEntity -> entity.readCustomDataFromNbt(newEntity)
+                is AbstractDecorationEntity -> entity.readCustomDataFromNbt(newEntity)
+            }
+            return true
+        }
         return false
     }
 }
