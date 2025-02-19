@@ -2,8 +2,14 @@ package com.github.quiltservertools.ledger.actions
 
 import com.github.quiltservertools.ledger.utility.NbtUtils
 import com.github.quiltservertools.ledger.utility.TextColorPallet
+import com.github.quiltservertools.ledger.utility.UUID
+import com.github.quiltservertools.ledger.utility.getUuid
 import com.github.quiltservertools.ledger.utility.getWorld
 import com.github.quiltservertools.ledger.utility.literal
+import net.minecraft.entity.Entity
+import net.minecraft.entity.EntityType
+import net.minecraft.entity.ItemEntity
+import net.minecraft.nbt.StringNbtReader
 import net.minecraft.server.MinecraftServer
 import net.minecraft.server.command.ServerCommandSource
 import net.minecraft.text.HoverEvent
@@ -35,33 +41,32 @@ open class ItemPickUpActionType : AbstractActionType() {
         }
     }
 
-    // TODO: item pickups
     override fun rollback(server: MinecraftServer): Boolean {
         val world = server.getWorld(world)
 
-//        val oldEntity = StringNbtReader.readCompound(oldObjectState)
-//        val uuid = oldEntity!!.getUuid(UUID) ?: return false
-//        val entity = world?.getEntity(uuid)
-//
-//        if (entity == null) {
-//            val entity = ItemEntity(EntityType.ITEM, world)
-//            entity.readNbt(oldEntity)
-//            world?.spawnEntity(entity)
-//        }
+        val oldEntityStateCompound = StringNbtReader.readCompound(oldObjectState)
+        val uuid = oldEntityStateCompound!!.getUuid(UUID)
+        val entity = world?.getEntity(uuid)
+
+        if (entity == null) {
+            val newEntity = ItemEntity(EntityType.ITEM, world)
+            newEntity.readNbt(oldEntityStateCompound)
+            world?.spawnEntity(newEntity)
+        }
         return true
     }
 
     override fun restore(server: MinecraftServer): Boolean {
         val world = server.getWorld(world)
 
-//        val oldEntity = StringNbtReader.readCompound(oldObjectState)
-//        val uuid = oldEntity!!.getUuid(UUID) ?: return false
-//        val entity = world?.getEntity(uuid)
-//
-//        if (entity != null) {
-//            entity.remove(Entity.RemovalReason.DISCARDED)
-//            return true
-//        }
+        val oldEntity = StringNbtReader.readCompound(oldObjectState)
+        val uuid = oldEntity!!.getUuid(UUID)
+        val entity = world?.getEntity(uuid)
+
+        if (entity != null) {
+            entity.remove(Entity.RemovalReason.DISCARDED)
+            return true
+        }
         return false
     }
 }
