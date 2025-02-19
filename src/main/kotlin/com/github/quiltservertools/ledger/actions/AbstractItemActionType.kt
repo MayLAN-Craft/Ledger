@@ -34,7 +34,9 @@ abstract class AbstractItemActionType : AbstractActionType() {
     }
 
     private fun getStack(server: MinecraftServer) = NbtUtils.itemFromProperties(
-        extraData, objectIdentifier, server.registryManager
+        extraData,
+        objectIdentifier,
+        server.registryManager
     )
 
     protected fun createItem(server: MinecraftServer, state: String?): Boolean {
