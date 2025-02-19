@@ -72,7 +72,7 @@ object NbtUtils {
     }
 
     fun toUuid(element: NbtElement): UUID {
-        require(element.nbtType !== NbtIntArray.TYPE) {
+        require(element.nbtType === NbtIntArray.TYPE) {
             "Expected UUID-Tag to be of type ${NbtIntArray.TYPE.crashReportName}, but found ${element.nbtType.crashReportName}."
         }
 
